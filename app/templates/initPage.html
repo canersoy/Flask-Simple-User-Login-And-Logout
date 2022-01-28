@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        function delete_flash(flash) {
+            $(flash).parent().remove()
+        }
+    </script>
+</head>
+
+<body>
+    <div style="margin:13%" class="ui placeholder segment">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div style="z-index:999;" class="ui warning message">
+            <i class="close icon" onclick=delete_flash(this)></i>
+            {{ message }}
+        </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="ui two column very relaxed stackable grid">
+
+            <div class="column">
+                <form class="ui form" action="" method="post" novalidate>
+                    {{loginForm.hidden_tag()}}
+                    <p>
+                        {{loginForm.usernameOrEmail.label(class="ui label")}}
+                        {{loginForm.usernameOrEmail()}}
+                        {% for error in loginForm.usernameOrEmail.errors %}
+                        <span style="color:red">{{error}}</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{loginForm.password.label(class="ui label")}}
+                        {{loginForm.password}}
+                        {% for error in loginForm.password.errors %}
+                        <span style="color:red">{{error}}</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{loginForm.remember_me(class="ui checkbox")}} {{loginForm.remember_me.label()}}
+                    </p>
+                    <p>
+                        {{loginForm.loginButton(class="ui blue button")}}
+                    </p>
+                </form>
+            </div>
+            <div class="column">
+                <form class="ui form" action="" method="post" novalidate>
+                    {{signupForm.hidden_tag()}}
+                    <p>
+                        {{signupForm.username.label(class="ui label")}}
+                        {{signupForm.username}}
+                        {% for error in signupForm.username.errors %}
+                        <span style="color:red">{{error}}</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{signupForm.email.label(class="ui label")}}
+                        {{signupForm.email}}
+                        {% for error in signupForm.email.errors %}
+                        <span style="color:red">{{error}}</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{signupForm.password.label(class="ui label")}}
+                        {{signupForm.password}}
+                        {% for error in signupForm.password.errors %}
+                        <span style="color:red">{{error}}</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{signupForm.confirm.label(class="ui label")}}
+                        {{signupForm.confirm}}
+                        {% for error in signupForm.confirm.errors %}
+                        <span style="color:red">{{error}}</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{signupForm.signupButton(class="ui green button")}}
+                    </p>
+                </form>
+            </div>
+
+        </div>
+        <div class="ui vertical divider">
+            Or
+        </div>
+    </div>
+</body>
+
+</html>
